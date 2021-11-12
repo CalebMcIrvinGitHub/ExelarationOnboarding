@@ -3,7 +3,7 @@ const RAPIDAPI_API_URL = 'https://arjunkomath-jaas-json-as-a-service-v1.p.rapida
 function httpGet(theUrl)
 {
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.open("GET", theUrl, false );
     xmlHttp.send();
     return JSON.parse(xmlHttp.response);
 }
@@ -11,7 +11,7 @@ function httpGet(theUrl)
 function httpPost(theUrl, toPost)
 {
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "POST", theUrl, true );
+    xmlHttp.open("POST", theUrl, true );
     xmlHttp.setRequestHeader('Content-type',  'application/json');
     xmlHttp.send(toPost);
 }
@@ -51,11 +51,14 @@ function populateStates() {
 
 
 function addCountry(countryName, countryCode) {
-    var toPost = [{"name": countryName, "code": countryCode}];
+    var toPost = JSON.stringify({ name: countryName, code: countryCode });
     httpPost("https://xc-countries-api.herokuapp.com/api/countries/", toPost);
     console.log(toPost);
 }
 
-function addState(stateName) {
-    console.log(stateName);
+function addState(stateName, stateCode, countryAddTo) {
+    var toPost = JSON.stringify({ name: stateName, code: stateCode });
+    httpPost("https://xc-countries-api.herokuapp.com/api/countries/" + countryAddTo + "/states/", toPost);
+    console.log(toPost);
+    console.log("https://xc-countries-api.herokuapp.com/api/countries/" + countryAddTo + "/states/");
 }
