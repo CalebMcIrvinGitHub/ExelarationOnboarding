@@ -18,16 +18,28 @@
         </select>
 
         <br>
-
+        <br>
+        
+        <label for ="countryName">Name of country to add</label>
         <input type="text" id="countryName">
+        <br>
+        <label for="countryCode">Code of country to add</label>
         <input type="text" id="countryCode">
+        <br>
         <button id = "addCountryBTN" onclick="addCountry(document.getElementById('countryName').value, document.getElementById('countryCode').value)">Add Country</button>
 
         <br>
+        <br>
 
+        <label for="stateName">Name of state to add</label>
         <input type="text" id="stateName">
+        <br>
+        <label for="stateCode">Code of state to add</label>
         <input type="text" id="stateCode">
+        <br>
+        <label for="countryAddTo">Code of country to add the state to</label>
         <input type="text" id="countryAddTo">
+        <br>
         <button id = "addStateBTN" onclick="addState(document.getElementById('stateName').value, document.getElementById('stateCode').value, document.getElementById('countryAddTo').value)">Add State</button>
 
     </body>
