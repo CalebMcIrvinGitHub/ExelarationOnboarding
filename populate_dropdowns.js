@@ -57,8 +57,7 @@ function addCountry(countryName, countryCode) {
 }
 
 function addState(stateName, stateCode, countryAddTo) {
-    var toPost = JSON.stringify({ name: stateName, code: stateCode });
-    httpPost("https://xc-countries-api.herokuapp.com/api/countries/" + countryAddTo + "/states/", toPost);
+    var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryAddTo });
+    httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
     console.log(toPost);
-    console.log("https://xc-countries-api.herokuapp.com/api/countries/" + countryAddTo + "/states/");
 }
