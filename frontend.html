@@ -7,7 +7,7 @@
     <body>
         
         <label for = "countries">Countries Dropdown</label>
-        <select id="countries">
+        <select id="countries" onchange=populateStates()>
         </select>
         <script>populateCountries()</script>
 
@@ -20,12 +20,12 @@
         <br>
 
         <input type="text" id="addCountry">
-        <button id = "addCountryBTN" onclick="addCountry">Add Country</button>
+        <button id = "addCountryBTN" onclick="">Add Country</button>
 
         <br>
 
         <input type="text" id="addState">
-        <button id = "addStateBTN" onclick="addCountry">Add State</button>
+        <button id = "addStateBTN" onclick="">Add State</button>
 
     </body>
 </html>
