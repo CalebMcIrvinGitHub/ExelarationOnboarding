@@ -19,13 +19,15 @@
 
         <br>
 
-        <input type="text" id="addCountry">
-        <button id = "addCountryBTN" onclick="">Add Country</button>
+        <input type="text" id="countryName">
+        <input type="text" id="countryCode">
+        <button id = "addCountryBTN" onclick="addCountry(document.getElementById('countryName').value, document.getElementById('countryCode').value)">Add Country</button>
 
         <br>
 
-        <input type="text" id="addState">
-        <button id = "addStateBTN" onclick="">Add State</button>
+        <input type="text" id="stateName">
+        <input type="text" id="stateCode">
+        <button id = "addStateBTN" onclick="addState(document.getElementById('addState').value)">Add State</button>
 
     </body>
 </html>

@@ -8,6 +8,14 @@ function httpGet(theUrl)
     return JSON.parse(xmlHttp.response);
 }
 
+function httpPost(theUrl, toPost)
+{
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", theUrl, true );
+    xmlHttp.setRequestHeader('Content-type',  'application/json');
+    xmlHttp.send(toPost);
+}
+
 function populateCountries() {
     let countries = httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
     var sel = document.getElementById('countries');
@@ -32,10 +40,22 @@ function populateStates() {
     }
     let states = httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
     var sel = document.getElementById('states');
+    sel.options.length = 0;
     for(var i = 0; i < states.length; i++) {
         var opt = document.createElement('option');
         opt.innerHTML = states[i]["name"];
         opt.value = states[i]["name"];
         sel.appendChild(opt);
     }
+}
+
+
+function addCountry(countryName, countryCode) {
+    var toPost = [{"name": countryName, "code": countryCode}];
+    httpPost("https://xc-countries-api.herokuapp.com/api/countries/", toPost);
+    console.log(toPost);
+}
+
+function addState(stateName) {
+    console.log(stateName);
 }
