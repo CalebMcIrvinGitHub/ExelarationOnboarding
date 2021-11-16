@@ -40,7 +40,6 @@ function populateStates() {
     //     }
     // }
     let code = document.getElementById('countries').value;
-    console.log(code);
     let states = httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
     var sel = document.getElementById('states');
     sel.options.length = 0;
@@ -56,11 +55,9 @@ function populateStates() {
 function addCountry(countryName, countryCode) {
     var toPost = JSON.stringify({ name: countryName, code: countryCode });
     httpPost("https://xc-countries-api.herokuapp.com/api/countries/", toPost);
-    console.log(toPost);
 }
 
 function addState(stateName, stateCode, countryAddTo) {
     var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryAddTo });
     httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
-    console.log(toPost);
 }
