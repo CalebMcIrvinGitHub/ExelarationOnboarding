@@ -18,6 +18,7 @@ function httpPost(theUrl, toPost)
 
 function populateCountries() {
     let countries = httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
+    countries.sort(function(a, b) { return compare(a["name"], b["name"]); })
     var sel = document.getElementById('countries');
     for(var i = 0; i < countries.length; i++) {
         var opt = document.createElement('option');
@@ -29,19 +30,14 @@ function populateCountries() {
 }
 
 function populateStates() {
-    // let countries = httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
-    // var country = document.getElementById('countries');
-    // var name = country.options[country.selectedIndex].value;
-    // var code;
-    // for (var i = 0; i < countries.length; i++) {
-    //     if (countries[i]["name"] === name) {
-    //         code = countries[i]["code"];
-    //         break;
-    //     }
-    // }
     let code = document.getElementById('countries').value;
-    let states = httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
     var sel = document.getElementById('states');
+    if (!code){
+        sel.options.length = 0;
+        return;
+    }
+    let states = httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
+    states.sort(function(a, b) { return compare(a["name"], b["name"]); })
     sel.options.length = 0;
     for(var i = 0; i < states.length; i++) {
         var opt = document.createElement('option');
@@ -51,6 +47,13 @@ function populateStates() {
     }
 }
 
+function compare(a, b) {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+    return (a < b) ? -1 : (a > b) ? 1 : 0;
+}
+  
+  
 
 function addCountry(countryName, countryCode) {
     var toPost = JSON.stringify({ name: countryName, code: countryCode });
