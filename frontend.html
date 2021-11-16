@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/Users/Caleb/Desktop/Exelaration/Onboarding/populate_dropdowns.js"></script>
     </head>
     <body>
@@ -10,7 +9,6 @@
         <select id="countries" onchange=populateStates()>
             <option id="default"></option>
         </select>
-        <script>populateCountries()</script>
 
         <br>
 
@@ -39,7 +37,9 @@
         <input type="text" id="stateCode">
         <br>
         <label for="countryAddTo">ID of country to add the state to</label>
-        <input type="text" id="countryAddTo">
+        <select id="countryAddTo">
+        </select>
+        <script>populateCountries()</script>
         <br>
         <button id = "addStateBTN" onclick="addState(document.getElementById('stateName').value, document.getElementById('stateCode').value, document.getElementById('countryAddTo').value)">Add State</button>
 

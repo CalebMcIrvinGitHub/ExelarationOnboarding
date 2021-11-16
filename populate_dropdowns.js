@@ -1,5 +1,3 @@
-const RAPIDAPI_API_URL = 'https://arjunkomath-jaas-json-as-a-service-v1.p.rapidapi.com/';
-
 function httpGet(theUrl)
 {
     let xmlHttp = new XMLHttpRequest();
@@ -18,14 +16,19 @@ function httpPost(theUrl, toPost)
 
 function populateCountries() {
     let countries = httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
-    countries.sort(function(a, b) { return compare(a["name"], b["name"]); })
+    countries.sort(compare)
     var sel = document.getElementById('countries');
+    var oth = document.getElementById('countryAddTo');
     for(var i = 0; i < countries.length; i++) {
         var opt = document.createElement('option');
         opt.innerHTML = countries[i]["name"];
         opt.value = countries[i]["code"];
-        
         sel.appendChild(opt);
+
+        var othopt = document.createElement('option');
+        othopt.innerHTML = countries[i]["name"];
+        othopt.value = countries[i]["code"];
+        oth.appendChild(othopt);
     }
 }
 
@@ -37,7 +40,7 @@ function populateStates() {
         return;
     }
     let states = httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
-    states.sort(function(a, b) { return compare(a["name"], b["name"]); })
+    states.sort(compare)
     sel.options.length = 0;
     for(var i = 0; i < states.length; i++) {
         var opt = document.createElement('option');
@@ -48,8 +51,8 @@ function populateStates() {
 }
 
 function compare(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
+    a = a["name"];
+    b = b["name"];
     return (a < b) ? -1 : (a > b) ? 1 : 0;
 }
   
@@ -64,3 +67,5 @@ function addState(stateName, stateCode, countryAddTo) {
     var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryAddTo });
     httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
 }
+
+// Dropdown for country when adding a state
