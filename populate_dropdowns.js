@@ -63,7 +63,6 @@ async function populateStates() {
     for(var i = 0; i < states.length; i++) {
         var opt = document.createElement('option');
         opt.innerHTML = states[i]["name"];
-        //opt.value = states[i];
         sel.appendChild(opt);
     }
 }
@@ -85,16 +84,7 @@ async function addState() {
 
     let stateName = document.getElementById('stateName').value;
     let stateCode = document.getElementById('stateCode').value;
-    let countryName = document.getElementById('countryAddTo').options[document.getElementById('countryAddTo').selectedIndex].innerHTML;
-    let countries = document.getElementById('countryAddTo');
-    let countryAddTo;
-    for (var i = 0; i < countries.options.length; i++) {
-        if (countries.options[i].innerHTML === countryName) {
-            countryAddTo = countries.options[i].value;
-            break;
-        }
-    }
-    var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryAddTo });
-    console.log(toPost);
-    //httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
+    let countryName = document.getElementById('countryAddTo').options[document.getElementById('countryAddTo').selectedIndex].value;
+    var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryName });
+    httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
 }
