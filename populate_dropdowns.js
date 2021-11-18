@@ -1,3 +1,4 @@
+/***
 function httpGet(theUrl)
 {
     let xmlHttp = new XMLHttpRequest();
@@ -13,9 +14,26 @@ function httpPost(theUrl, toPost)
     xmlHttp.setRequestHeader('Content-type',  'application/json');
     xmlHttp.send(toPost);
 }
+*/
+async function httpGet(theUrl) {
+    let gotten = await fetch(theUrl);
+    let theText = await gotten.text();
+    return JSON.parse(theText);
+}
 
-function populateCountries() {
-    let countries = httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
+async function httpPost(theUrl, toPost) {
+    const response = await fetch(theUrl, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: toPost
+      });
+}
+
+async function populateCountries() {
+    let countries = await httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
     countries.sort(compare)
     var sel = document.getElementById('countries');
     var oth = document.getElementById('countryAddTo');
@@ -32,14 +50,14 @@ function populateCountries() {
     }
 }
 
-function populateStates() {
+async function populateStates() {
     let code = document.getElementById('countries').value;
     var sel = document.getElementById('states');
     if (!code){
         sel.options.length = 0;
         return;
     }
-    let states = httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
+    let states = await httpGet("https://xc-countries-api.herokuapp.com/api/countries/" + code + "/states/");
     states.sort(compare)
     sel.options.length = 0;
     for(var i = 0; i < states.length; i++) {
@@ -63,9 +81,19 @@ function addCountry(countryName, countryCode) {
     httpPost("https://xc-countries-api.herokuapp.com/api/countries/", toPost);
 }
 
-function addState(stateName, stateCode, countryAddTo) {
+async function addState() {
+    let countries = await httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
+    let stateName = document.getElementById('stateName').value;
+    let stateCode = document.getElementById('stateCode').value;
+    let countryName = document.getElementById('countryAddTo').options[document.getElementById('countryAddTo').selectedIndex].innerHTML;
+    let countryAddTo;
+    for (var i = 0; i < countries.length; i++) {
+        if (countries[i]["name"] === countryName) {
+            countryAddTo = i;
+            break;
+        }
+    }
+    countryAddTo++;
     var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryAddTo });
     httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
 }
-
-// Dropdown for country when adding a state

@@ -38,10 +38,11 @@
         <br>
         <label for="countryAddTo">ID of country to add the state to</label>
         <select id="countryAddTo">
+            <option id="default"></option>
         </select>
         <script>populateCountries()</script>
         <br>
-        <button id = "addStateBTN" onclick="addState(document.getElementById('stateName').value, document.getElementById('stateCode').value, document.getElementById('countryAddTo').value)">Add State</button>
+        <button id = "addStateBTN" onclick="addState()">Add State</button>
 
     </body>
 </html>
