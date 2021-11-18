@@ -84,7 +84,7 @@ async function addState() {
 
     let stateName = document.getElementById('stateName').value;
     let stateCode = document.getElementById('stateCode').value;
-    let countryName = document.getElementById('countryAddTo').options[document.getElementById('countryAddTo').selectedIndex].value;
+    let countryName = document.getElementById('countryAddTo').value;
     var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryName });
     httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
 }
