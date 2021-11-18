@@ -45,7 +45,7 @@ async function populateCountries() {
 
         var othopt = document.createElement('option');
         othopt.innerHTML = countries[i]["name"];
-        othopt.value = countries[i]["code"];
+        othopt.value = countries[i]["id"];
         oth.appendChild(othopt);
     }
 }
@@ -63,7 +63,7 @@ async function populateStates() {
     for(var i = 0; i < states.length; i++) {
         var opt = document.createElement('option');
         opt.innerHTML = states[i]["name"];
-        opt.value = states[i]["code"];
+        //opt.value = states[i];
         sel.appendChild(opt);
     }
 }
@@ -82,18 +82,19 @@ function addCountry(countryName, countryCode) {
 }
 
 async function addState() {
-    let countries = await httpGet("https://xc-countries-api.herokuapp.com/api/countries/");
+
     let stateName = document.getElementById('stateName').value;
     let stateCode = document.getElementById('stateCode').value;
     let countryName = document.getElementById('countryAddTo').options[document.getElementById('countryAddTo').selectedIndex].innerHTML;
+    let countries = document.getElementById('countryAddTo');
     let countryAddTo;
-    for (var i = 0; i < countries.length; i++) {
-        if (countries[i]["name"] === countryName) {
-            countryAddTo = i;
+    for (var i = 0; i < countries.options.length; i++) {
+        if (countries.options[i].innerHTML === countryName) {
+            countryAddTo = countries.options[i].value;
             break;
         }
     }
-    countryAddTo++;
     var toPost = JSON.stringify({ name: stateName, code: stateCode, countryID: countryAddTo });
-    httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
+    console.log(toPost);
+    //httpPost("https://xc-countries-api.herokuapp.com/api/states/", toPost);
 }
